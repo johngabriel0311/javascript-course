@@ -524,3 +524,301 @@ function stepThroughDebugging(numbers) {
 const mixedNumbers = [10, 20, 'error', 30, null, 40];
 const debugResult = stepThroughDebugging(mixedNumbers);
 console.log('Debug session result:', debugResult);
+
+// SYSTEMATIC BUG FIXING APPLICATION
+
+/*
+DEBUGGING PROCESS APPLICATION:
+
+STEP 1: IDENTIFY ✅
+- Bug: calculateAverageScore returns NaN or wrong value
+- Expected: Average of [85, 92, 78, 96, 88] should be 87.8
+- Actual: Getting NaN or incorrect value
+
+STEP 2: ISOLATE ✅
+- Bug location: Inside calculateAverageScore function
+- Specific issues: initialization, loop condition, division
+
+STEP 3: INVESTIGATE ✅
+- total starts as undefined (undefined + number = NaN)
+- Loop goes one iteration too far (accesses undefined)
+- Division uses wrong denominator
+
+STEP 4: FIX ✅
+- Initialize total to 0
+- Change <= to < in loop condition
+- Remove + 1 from division
+
+STEP 5: PREVENT ✅
+- Add input validation
+- Add type checking for array elements
+*/
+
+function calculateAverageScoreFixed(scores) {
+  // STEP 5 - PREVENT: Add input validation
+  if (!Array.isArray(scores) || scores.length === 0) {
+    console.error('Invalid input: scores must be a non-empty array');
+    return 0;
+  }
+
+  // STEP 4 - FIX: Proper initialization
+  let total = 0;
+
+  // STEP 4 - FIX: Correct loop condition
+  for (let i = 0; i < scores.length; i++) {
+    if (typeof scores[i] === 'number') {
+      total += scores[i];
+    } else {
+      console.warn(`Skipping non-number value at index ${i}:`, scores[i]);
+    }
+  }
+
+  // STEP 4 - FIX: Correct division
+  return total / scores.length;
+}
+
+// Test the fixed function
+const fixedResult = calculateAverageScoreFixed(testScores);
+console.log('Fixed result:', fixedResult);
+
+// Comprehensive debugging verification
+console.group('Debugging Verification Tests');
+
+// Test 1 - Normal case
+const normalScores = [85, 92, 78, 96, 88];
+const normalResult = calculateAverageScoreFixed(normalScores);
+console.log('Normal case result:', normalResult);
+
+// Test 2 - Edge case with invalid data
+const mixedScores = [85, 'invalid', 92, null, 78];
+const mixedResult = calculateAverageScoreFixed(mixedScores);
+console.log('Mixed data result:', mixedResult);
+
+// Test 3 - Error case with invalid input
+const errorResult = calculateAverageScoreFixed('not an array');
+console.log('Error case result:', errorResult);
+
+// Test 4 - Edge case with empty array
+const emptyResult = calculateAverageScoreFixed([]);
+console.log('Empty array result:', emptyResult);
+
+console.groupEnd();
+
+console.log('Systematic debugging process successfully applied!');
+console.log(
+  'All bugs identified, isolated, investigated, fixed, and prevented'
+);
+
+// Developer Skills Hour 4 - Advanced Problem-Solving & Real-World Challenges
+('use strict');
+
+console.log('=== HOUR 4: ADVANCED PROBLEM-SOLVING MASTERY ===');
+
+/*
+Your Developer Transformation Today:
+Hour 1: Professional tools and environment ✅
+Hour 2: Problem-solving framework and mindset ✅  
+Hour 3: Research and debugging mastery ✅
+Hour 4: Apply everything to real challenges
+
+You're now solving unfamiliar problems independently.
+*/
+
+console.log('Ready to tackle complex problems using systematic approaches');
+console.log('Challenge: Build solutions that work under pressure');
+
+// MAIN CHALLENGE: Weather Forecast String Builder
+
+/*
+WEATHER FORECAST CHALLENGE:
+Apply 4-step framework systematically:
+1. UNDERSTAND: Transform array to formatted string with day numbering
+2. DIVIDE: String building + formatting + day calculation + separators
+3. RESEARCH: String concatenation and template literals
+4. IMPLEMENT: Step-by-step solution building
+*/
+
+const data1 = [17, 21, 23];
+const data2 = [12, 5, -5, 0, 4];
+
+function printForecast(arr) {
+  // Start with empty string accumulator - same pattern as sum calculations
+  let str = '';
+
+  // Loop through array to build the formatted string
+  for (let i = 0; i < arr.length; i++) {
+    // Build each piece using template literals for clean formatting
+    str += `${arr[i]}°C in ${i + 1} days ... `;
+  }
+
+  // Add starting dots and log the final result
+  console.log('...' + str);
+}
+
+// Test with provided data
+printForecast(data1);
+printForecast(data2);
+
+console.log('Weather forecast formatter working correctly!');
+
+// ALTERNATIVE IMPLEMENTATIONS
+
+// Alternative 1 - Using array methods instead of loops
+function printForecastMap(arr) {
+  const formatted = arr.map((temp, index) => `${temp}°C in ${index + 1} days`);
+  console.log('...' + formatted.join(' ... ') + ' ...');
+}
+
+// Alternative 2 - Single line approach using reduce
+function printForecastReduce(arr) {
+  const result = arr.reduce(
+    (acc, temp, index) => acc + `${temp}°C in ${index + 1} days ... `,
+    '...'
+  );
+  console.log(result);
+}
+
+// Test alternative approaches
+console.log('Testing alternative implementations:');
+printForecastMap(data1);
+printForecastReduce(data1);
+
+// TIME-PRESSURED CHALLENGE: Work Hours Analyzer
+
+/*
+JOB INTERVIEW SIMULATION:
+10-minute challenge to analyze freelancer work week
+Stay systematic even under pressure!
+*/
+
+function analyzeWorkWeek(dailyHours) {
+  // Total hours using reduce
+  const totalHours = dailyHours.reduce((sum, hours) => sum + hours, 0);
+
+  // Average with proper rounding
+  const averageHours = Math.round((totalHours / dailyHours.length) * 10) / 10;
+
+  // Maximum hours and corresponding day
+  const maxHours = Math.max(...dailyHours);
+  const maxDayIndex = dailyHours.indexOf(maxHours);
+  const days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+  const maxDay = days[maxDayIndex];
+
+  // Days worked using filter
+  const daysWorked = dailyHours.filter(hours => hours > 0).length;
+
+  // Check if full-time week
+  const isFullTime = totalHours >= 35;
+
+  return {
+    totalHours,
+    averageHours,
+    maxDay,
+    daysWorked,
+    isFullTime,
+  };
+}
+
+// Test
+const weeklyHours = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+const analysis = analyzeWorkWeek(weeklyHours);
+console.log('Work week analysis:', analysis);
+
+console.log('Challenge completed under time pressure!');
+
+// Optimized version with error handling
+function analyzeWorkWeekOptimized(dailyHours) {
+  if (!Array.isArray(dailyHours) || dailyHours.length !== 7) {
+    console.error('Invalid input: Expected array of 7 daily hours');
+    return null;
+  }
+
+  const totalHours = dailyHours.reduce((sum, hours) => sum + hours, 0);
+  const averageHours = Math.round((totalHours / 7) * 10) / 10;
+  const maxHours = Math.max(...dailyHours);
+  const maxDayIndex = dailyHours.indexOf(maxHours);
+  const daysWorked = dailyHours.filter(hours => hours > 0).length;
+
+  const dayNames = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+
+  return {
+    totalHours,
+    averageHours,
+    maxDay: dayNames[maxDayIndex],
+    daysWorked,
+    isFullTime: totalHours >= 35,
+    workingDays: dailyHours
+      .map((hours, index) => (hours > 0 ? dayNames[index] : null))
+      .filter(day => day !== null),
+  };
+}
+
+const optimizedAnalysis = analyzeWorkWeekOptimized(weeklyHours);
+console.log('Optimized analysis:', optimizedAnalysis);
+
+// FINAL INTEGRATION: Debug and Enhance Legacy Code
+
+// Here's the buggy legacy code you need to fix
+function legacyForecastFunction(temperatures) {
+  // Multiple bugs hidden in this code!
+  var result = '';
+  for (var i = 1; i <= temperatures.length; i++) {
+    result = result + temperatures[i] + ' degrees in day ' + i + ', ';
+  }
+  return result;
+}
+
+// Test the buggy function to see what goes wrong
+const testData = [15, 18, 22, 19];
+console.log('Buggy function output:', legacyForecastFunction(testData));
+
+// SYSTEMATIC DEBUGGING AND ENHANCEMENT
+
+// Fixed Version
+function enhancedForecastFunction(temperatures, options = {}) {
+  if (!Array.isArray(temperatures) || temperatures.length === 0) {
+    console.error('Invalid input: temperatures must be a non-empty array');
+    return '';
+  }
+
+  const { unit = '°C', separator = '...', includeIndex = true } = options;
+
+  let result = '';
+
+  for (let i = 0; i < temperatures.length; i++) {
+    const dayNumber = includeIndex ? i + 1 : i;
+    result += `${temperatures[i]}${unit} in ${dayNumber} days${separator}`;
+  }
+
+  return separator + result.slice(0, -separator.length);
+}
+
+// Test
+console.log('Enhanced function (default):', enhancedForecastFunction(testData));
+console.log(
+  'Enhanced function (custom):',
+  enhancedForecastFunction(testData, {
+    unit: '°F',
+    separator: ' | ',
+    includeIndex: true,
+  })
+);
+
+console.log('🎯 Complete developer skills successfully applied!');
+console.log('Legacy code debugged, fixed, and enhanced systematically');
