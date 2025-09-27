@@ -249,3 +249,5 @@ console.log('Original hobbies:', deepOriginal.hobbies);
 console.log('Copy hobbies:', deepCopy.hobbies);
 console.log('Original name:', deepOriginal.name);
 console.log('Copy name:', deepCopy.name);
+
+
